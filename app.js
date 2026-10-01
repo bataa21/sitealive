@@ -78,7 +78,43 @@ const link=addText(actions,'a','Сайт руу очих ↗');link.href=safeUrl
 const retry=addText(actions,'button','Дахин шалгах ↻');retry.type='button';retry.className='result-action';retry.addEventListener('click',()=>{if(checkBtn.disabled)return;input.value=safeUrl;document.getElementById('checkForm').requestSubmit();});result.append(actions);
 }
 function renderHistory(){const list=document.getElementById('historyList');list.replaceChildren();if(!history.length){const e=addText(list,'p','Эхний сайтаа шалгаад үзээрэй 🙂');e.className='empty';}for(const item of history){const row=document.createElement('div');row.className='history-row';const body=document.createElement('div');let host;try{host=new URL(item.url).host;}catch{continue;}addText(body,'strong',host);addText(body,'small',titles[item.status]);addText(body,'small',new Date(item.checkedAt).toLocaleString('mn-MN'));row.append(body);const btn=addText(row,'button','Дахин ↻');btn.className='text-button';btn.type='button';btn.addEventListener('click',()=>{input.value=item.url;document.getElementById('checkForm').requestSubmit();});list.append(row);}document.getElementById('clearHistory').disabled=!history.length;}
-document.getElementById('checkForm').addEventListener('submit',async e=>{e.preventDefault();let url;try{url=normalizeUrl(input.value);}catch(err){showResult('unknown',input.value,err.message);return;}if(!api){showResult('unknown',url,'Шалгах үйлчилгээ хараахан холбогдоогүй байна. Доорх холболтын тохиргоонд үйлчилгээний хаягаа оруулна уу.');return;}checkBtn.disabled=true;checkBtn.textContent='Шалгаж байна…';result.hidden=false;result.className='result-card';result.replaceChildren();addText(result,'p','🔎 '+url+' руу холбогдож байна…');const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),20000);try{const endpoint=new URL(api);endpoint.pathname='/check';endpoint.search='';const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url}),signal:controller.signal});if(!response.ok)throw Error();const data=await response.json();if(!['up','down','unknown'].includes(data.status)||typeof data.message!=='string')throw Error();showResult(data.status,url,data.message,data.httpStatus,data.elapsed,data.reason);if(data.method)addText(result,'small','Шалгасан арга: '+data.method);history.unshift({url,status:data.status,checkedAt:Date.now()});history=history.slice(0,20);try{localStorage.setItem(STORAGE_KEY,JSON.stringify(history));}catch{}renderHistory();}catch{showResult('unknown',url,'Шалгах үйлчилгээтэй холбогдож чадсангүй. Энэ нь тухайн сайт унтарсан гэсэн үг биш. Дахин оролдоно уу.');}finally{clearTimeout(timer);checkBtn.disabled=false;checkBtn.textContent='Шалгах 🔍';}});
+async function requestSiteCheck(endpoint,url,onWaking){
+ const deadline=Date.now()+100000;
+ let lastError;
+ while(Date.now()<deadline){
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),Math.min(20000,deadline-Date.now()));
+  try{
+   const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url}),signal:controller.signal});
+   if([502,503,504].includes(response.status))throw Error('Service starting');
+   if(!response.ok)throw Object.assign(Error('Service error'),{terminal:true});
+   const data=await response.json();
+   if(!['up','down','unknown'].includes(data.status)||typeof data.message!=='string')throw Object.assign(Error('Invalid response'),{terminal:true});
+   return data;
+  }catch(err){lastError=err;if(err.terminal)throw err;onWaking();}
+  finally{clearTimeout(timer);}
+  if(Date.now()<deadline)await new Promise(resolve=>setTimeout(resolve,Math.min(2000,deadline-Date.now())));
+ }
+ throw lastError||Error('Service unavailable');
+}
+document.getElementById('checkForm').addEventListener('submit',async e=>{
+ e.preventDefault();if(checkBtn.disabled)return;
+ let url;try{url=normalizeUrl(input.value);}catch(err){showResult('unknown',input.value,err.message);return;}
+ if(!api){showResult('unknown',url,'Шалгах үйлчилгээ хараахан холбогдоогүй байна.');return;}
+ checkBtn.disabled=true;checkBtn.textContent='Шалгаж байна…';result.hidden=false;result.className='result-card';result.replaceChildren();
+ const progress=addText(result,'p','🔎 '+url+' руу холбогдож байна…');
+ const onWaking=()=>{progress.textContent='⏳ Шалгах үйлчилгээ асаж байна эсвэл холболт удааширч байна… Түр хүлээнэ үү. Бэлэн болмогц автоматаар шалгана.';checkBtn.textContent='Түр хүлээнэ үү…';};
+ const noticeTimer=setTimeout(onWaking,5000);
+ try{
+  const endpoint=new URL(api);endpoint.pathname='/check';endpoint.search='';endpoint.hash='';
+  const data=await requestSiteCheck(endpoint,url,onWaking);
+  clearTimeout(noticeTimer);
+  showResult(data.status,url,data.message,data.httpStatus,data.elapsed,data.reason);
+  history.unshift({url,status:data.status,checkedAt:Date.now()});history=history.slice(0,20);
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(history));}catch{}renderHistory();
+ }catch{showResult('unknown',url,'Шалгах үйлчилгээтэй холбогдож чадсангүй. Интернэт холболтоо шалгаад дахин оролдоно уу. Энэ нь оруулсан сайт унтарсан гэсэн үг биш.');}
+ finally{clearTimeout(noticeTimer);checkBtn.disabled=false;checkBtn.textContent='Шалгах 🔍';}
+});
 document.querySelectorAll('[data-url]').forEach(btn=>btn.addEventListener('click',()=>{input.value=btn.dataset.url;input.focus();}));
 document.getElementById('clearHistory').addEventListener('click',()=>{history=[];try{localStorage.removeItem(STORAGE_KEY);}catch{}renderHistory();});
 document.getElementById('apiInput').value=api;
