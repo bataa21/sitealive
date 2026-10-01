@@ -1,0 +1,341 @@
+/* FINE-TUNED NEO-BRUTALISM STYLE SHEET */
+:root {
+    --bg-color: #FAF6EE;       /* Authentic cream canvas backdrop */
+    --card-bg: #ffffff;
+    --dark-border: #000000;    /* Absolute solid pure black outlines */
+    --primary-blue: #2563eb;
+    --text-main: #000000;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+/* OVERALL WRAPPER */
+.app-container {
+    width: 100%;
+    max-width: 680px;
+    text-align: center;
+}
+
+/* HEADER ELEMENTS */
+.clothesline-mock {
+    font-size: 38px;
+    margin-bottom: 16px;
+    letter-spacing: 4px;
+}
+
+.season-pill {
+    display: inline-block;
+    background: #ffffff;
+    border: 2px solid var(--dark-border);
+    padding: 6px 18px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    box-shadow: 2px 2px 0px var(--dark-border);
+}
+
+.step-title {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 24px;
+    letter-spacing: -0.5px;
+}
+
+/* WIZARD SYSTEM COVERS: Controls showing only 1 question block at a time */
+.form-step {
+    display: none; /* Hide all steps by default */
+}
+
+.form-step.step-active {
+    display: block; /* Show only the current step */
+    animation: slideUpPop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+}
+
+/* 3-COLUMN BRUTALIST BUTTON GRID */
+.district-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+/* DISTINCT BUTTON BLOCKS WITH 3D SHADOWS */
+.grid-card {
+    background: #ffffff;
+    border: 2px solid var(--dark-border);
+    padding: 16px 8px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    transition: all 0.1s ease;
+    /* The core element of Neo-Brutalism design: */
+    box-shadow: 3px 3px 0px var(--dark-border); 
+}
+
+.grid-card input {
+    display: none;
+}
+
+.grid-card:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0px var(--dark-border);
+}
+
+/* Pressed down state when radio option gets active selection click */
+.grid-card:has(input:checked) {
+    background-color: #E2E8F0;
+    transform: translate(3px, 3px);
+    box-shadow: 0px 0px 0px var(--dark-border);
+}
+
+/* CHUNKY SUBMIT ACTIONS BUTTON */
+.primary-btn {
+    background: #2563EB;
+    color: white;
+    padding: 14px 32px;
+    border: 2px solid var(--dark-border);
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    max-width: 240px;
+    margin-top: 12px;
+    box-shadow: 3px 3px 0px var(--dark-border);
+    transition: all 0.1s ease;
+}
+
+.primary-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0px var(--dark-border);
+}
+
+.primary-btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: 0px 0px 0px var(--dark-border);
+}
+
+/* RESULTS CARD CONTAINER ACCENT COVERS */
+.result-card {
+    background: #ffffff;
+    border: 2px solid var(--dark-border);
+    padding: 32px 24px;
+    border-radius: 16px;
+    box-shadow: 4px 4px 0px var(--dark-border);
+    margin-top: 20px;
+}
+
+.result-card h2 {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.result-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #374151;
+    margin-bottom: 20px;
+}
+
+/* MICROMOVEMENT ANIMATION FRAME */
+@keyframes slideUpPop {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* GLOBAL NAVBAR & WEATHER INDICATOR CHIP */
+.global-navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 40px; /* Pads items away from edges */
+    pointer-events: none; /* Allows clicks to pass through transparent areas */
+}
+
+/* Enable clicking back for active interactive elements */
+.nav-logo, .weather-chip {
+    pointer-events: auto;
+    background: #ffffff;
+    border: 2px solid var(--dark-border);
+    box-shadow: 3px 3px 0px var(--dark-border);
+}
+
+/* LEFT LOGO LAYOUT */
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-weight: 900;
+    font-size: 16px;
+}
+
+.logo-icon {
+    font-size: 18px;
+}
+
+/* RIGHT WEATHER CHIP ACCENT COVERS */
+.weather-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 30px; /* Clean capsule shape */
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: -0.2px;
+}
+
+.chip-sun {
+    font-size: 14px;
+}
+
+/* RESPONSIVE FIX: Shifts layout positions gracefully on tiny mobile widths */
+@media (max-width: 600px) {
+    .global-navbar {
+        position: relative;
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px;
+    }
+}
+/* ADDED INPUT ELEMENTS FOR AGE & GENDER */
+
+/* GENDER SEGMENTED GRID */
+.brutalist-segmented {
+    display: flex;
+    gap: 12px;
+    max-width: 320px;
+    margin: 0 auto;
+}
+
+.segment-card {
+    flex: 1;
+    background: #ffffff;
+    border: 2px solid var(--dark-border);
+    padding: 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    box-shadow: 3px 3px 0px var(--dark-border);
+    transition: all 0.1s ease;
+}
+
+.segment-card input {
+    display: none; /* Hide default radio button circle */
+}
+
+/* Checked state for gender boxes */
+.segment-card:has(input:checked) {
+    background-color: #E2E8F0;
+    transform: translate(3px, 3px);
+    box-shadow: 0px 0px 0px var(--dark-border);
+}
+
+/* BRUTALIST TEXT & NUMBER INPUT FIELDS */
+.text-input {
+    width: 100%;
+    max-width: 320px;
+    padding: 14px;
+    border: 2px solid #000000; /* Solid pure black outline */
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+    outline: none;
+    background: #ffffff;
+    /* The core element of Neo-Brutalism design: */
+    box-shadow: 3px 3px 0px #000000; 
+    transition: all 0.1s ease;
+}
+
+/* Focused style layout when clicking into the number box */
+.text-input:focus {
+    background-color: #fffdec; /* Warm accent highlight hint */
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0px #000000;
+}
+
+
+/* Introductory questions and responsive screenshot-inspired styling. */
+:root { --bg-color:#fff4e3; --dark-border:#211438; --text-main:#211438; }
+body { display:block; padding:18px 24px 40px; background-image:radial-gradient(#e9d8c1 .8px,transparent .8px); background-size:22px 22px; }
+.global-navbar { position:relative; padding:0; gap:16px; }
+.nav-logo { background:none; border:0; box-shadow:none; padding:0; font-size:22px; }
+.logo-text span { color:#ff469d; }
+.logo-icon { font-size:32px; }
+.weather-chip { font-weight:500; }
+.app-container { margin:0 auto; max-width:680px; }
+.clothesline { display:block; width:min(100%,480px); height:auto; margin:6px auto 22px; }
+.season-pill { margin-bottom:30px; box-shadow:none; font-size:14px; }
+.hero-title { font-size:clamp(34px,5.8vw,58px); line-height:1.1; font-weight:950; letter-spacing:-1.7px; margin:0 0 20px; }
+.hero-title span { color:#ff469d; }
+.hero-description { color:#756386; font-size:17px; line-height:1.5; margin-bottom:34px; }
+.choice-grid { display:grid; gap:16px; }
+.two-columns { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.age-columns { grid-template-columns:repeat(4,minmax(0,1fr)); }
+.choice-card { position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; min-height:120px; padding:18px 8px; background:white; border:3px solid var(--dark-border); border-radius:20px; box-shadow:5px 6px 0 var(--dark-border); font-size:21px; font-weight:900; cursor:pointer; }
+.choice-card input,.grid-card input { display:block; position:absolute; width:1px; height:1px; opacity:0; }
+.grid-card { position:relative; }
+.choice-card:has(input:focus-visible),.grid-card:has(input:focus-visible) { outline:3px solid #ff469d; outline-offset:5px; }
+.choice-card:hover { transform:translateY(-2px); }
+.choice-card:has(input:checked) { outline:3px solid #ff469d; outline-offset:3px; }
+.choice-emoji { font-size:36px; line-height:1.2; }
+.answer-yes,.answer-no { min-height:174px; color:white; font-size:38px; }
+.answer-yes { background:#ff469d; }.answer-no { background:#3353ff; }
+.answer-yes .choice-emoji,.answer-no .choice-emoji { font-size:48px; }
+.step-title { font-size:36px; margin-bottom:26px; }
+.answer-note { color:#675483; margin:14px 0 8px; font-size:15px; }
+.wizard-navigation { display:flex; justify-content:space-between; align-items:center; margin-bottom:26px; }
+.wizard-navigation[hidden] { display:none; }
+#backBtn { background:none; border:0; color:#675483; font-size:14px; cursor:pointer; padding:5px; }
+#progressDots { display:flex; gap:6px; }
+.progress-dot { width:10px; height:10px; border:2px solid var(--dark-border); border-radius:10px; }
+.progress-dot.filled { width:28px; background:var(--dark-border); }
+@media(max-width:600px) {
+ body { padding:16px 16px 32px; }
+ .global-navbar { flex-direction:row; flex-wrap:wrap; justify-content:space-between; padding:0; gap:10px; }
+ .nav-logo { font-size:18px; }.weather-chip { padding:7px 9px; font-size:11px; }
+ .clothesline { margin-top:20px; }.season-pill { font-size:11px; padding:7px 9px; margin-bottom:28px; }
+ .age-columns { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .choice-card { font-size:18px; min-height:110px; }.answer-yes,.answer-no { font-size:30px; min-height:145px; }
+ .step-title { font-size:30px; }.district-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(prefers-reduced-motion:reduce) { .form-step.step-active { animation:none; }.choice-card { transition:none; } }
+
+
+.weather-chip { cursor:pointer; }
+.weather-source { text-align:center; margin:30px auto 0; font-size:11px; color:#756386; }
+.weather-source a { color:inherit; }
+
+[hidden]{display:none!important}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.search-row{display:flex;gap:12px}#urlInput,#apiInput{min-width:0;width:100%;background:white;border:3px solid var(--dark-border);border-radius:16px;padding:18px;font-size:18px;color:var(--text-main);box-shadow:4px 5px 0 var(--dark-border)}.search-row .primary-btn{margin:0;max-width:160px;border-radius:16px;background:#3353ff;font-size:18px}.primary-btn:disabled{opacity:.65;cursor:wait}input:focus-visible,button:focus-visible{outline:3px solid #ff469d;outline-offset:4px}.examples{margin:18px 0 26px;font-size:13px;color:#756386}.examples button,.text-button{background:transparent;border:0;color:#675483;cursor:pointer;padding:8px;text-decoration:underline}.result-card{border:3px solid var(--dark-border);text-align:left}.result-card h2{font-size:26px}.result-card.good{background:#e8ffd9}.result-card.bad{background:#ffe1e9}.result-card.uncertain{background:#fff0bd}.result-card p{margin-bottom:8px;overflow-wrap:anywhere}.history{margin-top:44px;text-align:left}.history-head{display:flex;justify-content:space-between;gap:10px;align-items:center}.history h2{font-size:22px}.history-note{color:#756386;font-size:12px;margin:8px 0 18px}.history-row{display:flex;align-items:center;justify-content:space-between;gap:12px;background:white;border:2px solid var(--dark-border);box-shadow:3px 3px 0 var(--dark-border);border-radius:14px;padding:16px;margin-bottom:12px}.history-row strong{display:block;overflow-wrap:anywhere}.history-row small{display:block;color:#756386;margin-top:6px}.history-row button{flex-shrink:0}.empty{padding:25px;text-align:center;border:2px dashed #d4c5bc;border-radius:14px;color:#756386}.footnote{font-size:12px;line-height:1.6;margin-top:26px;color:#756386}.connection{margin-top:24px;text-align:left;font-size:13px;color:#756386}.connection p{margin:12px 0}.connection label{display:block;margin-bottom:8px}#apiInput{font-size:14px;padding:12px}.clothesline{max-height:155px;margin-bottom:12px}.season-pill{margin-bottom:24px}.hero-title{font-size:clamp(38px,6vw,58px)}
+@media(max-width:500px){.search-row{flex-direction:column}.search-row .primary-btn{max-width:none;padding:16px}.history-head{align-items:flex-start}.history h2{font-size:19px}.history-row{padding:12px}.hero-description{font-size:15px;margin-bottom:24px}}
