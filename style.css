@@ -341,3 +341,10 @@ body { display:block; padding:18px 24px 40px; background-image:radial-gradient(#
 @media(max-width:500px){.search-row{flex-direction:column}.search-row .primary-btn{max-width:none;padding:16px}.history-head{align-items:flex-start}.history h2{font-size:19px}.history-row{padding:12px}.hero-description{font-size:15px;margin-bottom:24px}}
 
 .result-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}.result-action{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border:2px solid #222;border-radius:12px;background:#fff;color:#222;font:inherit;font-weight:700;text-decoration:none;cursor:pointer;box-shadow:3px 3px 0 #222}.result-action:hover{background:#fff2ae}.result-action:focus-visible{outline:3px solid #3878d5;outline-offset:4px}
+
+/* Collaboration form link */
+.nav-actions{display:flex;align-items:center;justify-content:flex-end;gap:12px;flex-wrap:wrap}
+.collaborate-link{pointer-events:auto;display:inline-flex;align-items:center;justify-content:center;background:#fff;border:2px solid var(--dark-border);box-shadow:3px 3px 0 var(--dark-border);border-radius:30px;padding:8px 16px;color:var(--text-main);font-size:13px;font-weight:700;text-decoration:none}
+.collaborate-link:hover{background:#ffe1ef}
+.collaborate-link:focus-visible{outline:3px solid #ff469d;outline-offset:4px}
+@media(max-width:600px){.global-navbar{position:relative;padding:16px;gap:12px;flex-wrap:wrap}.nav-actions{gap:10px}.collaborate-link{font-size:11px;padding:7px 9px}}
