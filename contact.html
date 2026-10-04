@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="mn">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Хамтран ажиллая · SiteAlive</title><link rel="stylesheet" href="style.css?v=1.4"><link rel="stylesheet" href="contact.css?v=1.5"></head>
+<body>
+<nav class="global-navbar"><a class="collaborate-link" href="index.html">← Сайт шалгах</a><div class="nav-actions"><span class="collaborate-link">🤝 Хамтран ажиллая</span><div id="liveWeatherChip" class="weather-chip" role="button" tabindex="0"><span class="chip-sun">🌡️</span><span id="chipTempText" aria-live="polite">Цаг агаар уншиж байна…</span></div></div></nav>
+<main class="contact-container"><header class="contact-heading"><div class="handshake" aria-hidden="true">🤝</div><h1>Хамтран ажиллая!</h1><p>Брэнд, зар сурталчилгаа, хамтарсан аян, эсвэл зүгээр л<br>гоё санаа — бичээд үлдээ. Бид эргээд холбогдоно.</p></header>
+<form id="contactForm" class="contact-card" method="post" target="contactReceiver">
+<label for="purpose">Холбогдох зорилго</label><select id="purpose" name="purpose" required><option value="">Сонгоорой…</option><option>Санал хүсэлт</option><option>Алдаа мэдэгдэх</option><option>Хамтран ажиллах</option><option>Зар байрлуулах</option></select>
+<label for="email">Имэйл</label><input id="email" name="email" type="email" autocomplete="email" maxlength="254" required placeholder="name@example.com">
+<label for="phone">Утас <span>(заавал биш)</span></label><input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40">
+<label for="message">Санал</label><textarea id="message" name="message" rows="5" maxlength="4000" required placeholder="Юу хамтарч хийх вэ? 😊"></textarea>
+<div class="honeypot" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+<input type="hidden" name="requestId" id="requestId"><input type="hidden" name="returnOrigin" id="returnOrigin">
+<button id="sendContact" class="contact-send" type="submit">Санал илгээх 🚀</button>
+<p id="contactStatus" role="status" aria-live="polite"></p>
+<p class="privacy-note">Мэдээллийг зөвхөн таны санал хүсэлтийн талаар холбогдоход ашиглана.</p>
+</form>
+<p class="form-backup">Өөр аргаар илгээх үү? <a href="https://forms.gle/b9tCseoudjWff55y6" target="_blank" rel="noopener noreferrer">Google Forms нээх ↗</a></p>
+<iframe name="contactReceiver" id="contactReceiver" title="Санал илгээх үйлчилгээ" hidden></iframe>
+</main><footer class="weather-source">Batcha Studio · Цаг агаар: <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a></footer>
+<script src="contact-config.js?v=1.6"></script>
+<script src="contact-weather.js?v=1.5"></script>
+<script src="contact.js?v=1.7.1"></script>
+</body></html>
