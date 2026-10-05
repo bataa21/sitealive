@@ -348,3 +348,9 @@ body { display:block; padding:18px 24px 40px; background-image:radial-gradient(#
 .collaborate-link:hover{background:#ffe1ef}
 .collaborate-link:focus-visible{outline:3px solid #ff469d;outline-offset:4px}
 @media(max-width:600px){.global-navbar{position:relative;padding:16px;gap:12px;flex-wrap:wrap}.nav-actions{gap:10px}.collaborate-link{font-size:11px;padding:7px 9px}}
+
+/* Visible loading indicator for the website check. */
+#checkBtn.is-checking{display:flex;align-items:center;justify-content:center;gap:9px;opacity:1;font-size:16px;cursor:wait}
+.check-spinner{display:inline-block;flex:0 0 20px;width:20px;height:20px;box-sizing:border-box;border:3px solid rgba(255,255,255,.4);border-top-color:#ff469d;border-right-color:#fff;border-radius:50%;animation:sitealive-spin .8s linear infinite}
+@keyframes sitealive-spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.check-spinner{animation:none}}

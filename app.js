@@ -97,13 +97,18 @@ async function requestSiteCheck(endpoint,url,onWaking){
  }
  throw lastError||Error('Service unavailable');
 }
+function setCheckingButton(label){
+ checkBtn.classList.add('is-checking');checkBtn.setAttribute('aria-busy','true');
+ const spinner=document.createElement('span');spinner.className='check-spinner';spinner.setAttribute('aria-hidden','true');
+ const text=document.createElement('span');text.textContent=label;checkBtn.replaceChildren(spinner,text);
+}
 document.getElementById('checkForm').addEventListener('submit',async e=>{
  e.preventDefault();if(checkBtn.disabled)return;
  let url;try{url=normalizeUrl(input.value);}catch(err){showResult('unknown',input.value,err.message);return;}
  if(!api){showResult('unknown',url,'Шалгах үйлчилгээ хараахан холбогдоогүй байна.');return;}
- checkBtn.disabled=true;checkBtn.textContent='Шалгаж байна…';result.hidden=false;result.className='result-card';result.replaceChildren();
+ checkBtn.disabled=true;setCheckingButton('Шалгаж байна…');result.hidden=false;result.className='result-card';result.replaceChildren();
  const progress=addText(result,'p','🔎 '+url+' руу холбогдож байна…');
- const onWaking=()=>{progress.textContent='⏳ Шалгах үйлчилгээ асаж байна эсвэл холболт удааширч байна… Түр хүлээнэ үү. Бэлэн болмогц автоматаар шалгана.';checkBtn.textContent='Түр хүлээнэ үү…';};
+ const onWaking=()=>{progress.textContent='⏳ Шалгах үйлчилгээ асаж байна эсвэл холболт удааширч байна… Түр хүлээнэ үү. Бэлэн болмогц автоматаар шалгана.';setCheckingButton('Түр хүлээнэ үү…');};
  const noticeTimer=setTimeout(onWaking,5000);
  try{
   const endpoint=new URL(api);endpoint.pathname='/check';endpoint.search='';endpoint.hash='';
@@ -113,7 +118,7 @@ document.getElementById('checkForm').addEventListener('submit',async e=>{
   history.unshift({url,status:data.status,checkedAt:Date.now()});history=history.slice(0,20);
   try{localStorage.setItem(STORAGE_KEY,JSON.stringify(history));}catch{}renderHistory();
  }catch{showResult('unknown',url,'Шалгах үйлчилгээтэй холбогдож чадсангүй. Интернэт холболтоо шалгаад дахин оролдоно уу. Энэ нь оруулсан сайт унтарсан гэсэн үг биш.');}
- finally{clearTimeout(noticeTimer);checkBtn.disabled=false;checkBtn.textContent='Шалгах 🔍';}
+ finally{clearTimeout(noticeTimer);checkBtn.disabled=false;checkBtn.classList.remove('is-checking');checkBtn.removeAttribute('aria-busy');checkBtn.textContent='Шалгах 🔍';}
 });
 document.querySelectorAll('[data-url]').forEach(btn=>btn.addEventListener('click',()=>{input.value=btn.dataset.url;input.focus();}));
 document.getElementById('clearHistory').addEventListener('click',()=>{history=[];try{localStorage.removeItem(STORAGE_KEY);}catch{}renderHistory();});
